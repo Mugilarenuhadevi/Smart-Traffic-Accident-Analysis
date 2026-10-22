@@ -1,0 +1,10 @@
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+venv/
+*.pyc
+.DS_Store
+Thumbs.db
+# keep the sample data in the repo; uncomment the next line if you do not want to publish data files
+# data/
+*.pbix.bak

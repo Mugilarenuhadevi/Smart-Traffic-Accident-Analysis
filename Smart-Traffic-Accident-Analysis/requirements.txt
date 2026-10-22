@@ -1,0 +1,10 @@
+pandas>=2.0
+numpy>=1.24
+matplotlib>=3.7
+seaborn>=0.12
+jupyter>=1.0
+nbformat>=5.9
+# only needed for python/load_to_mysql.py (loading data into MySQL from Python)
+sqlalchemy>=2.0
+pymysql>=1.1
+cryptography>=41.0

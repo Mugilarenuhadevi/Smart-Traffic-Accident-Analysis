@@ -1,0 +1,97 @@
+======================================================================
+1. INITIAL INSPECTION
+======================================================================
+Shape (rows, columns): (12160, 22)
+
+Data types:
+Accident_ID                 str
+Date                        str
+Time                        str
+Day_of_Week                 str
+Month                       str
+Year                      int64
+Location                    str
+City                        str
+State                       str
+Weather_Condition           str
+Road_Condition              str
+Road_Type                   str
+Vehicle_Type                str
+Number_of_Vehicles        int64
+Number_of_Casualties      int64
+Number_of_Fatalities      int64
+Accident_Severity           str
+Speed_Limit             float64
+Light_Condition             str
+Alcohol_Involved            str
+Driver_Age              float64
+Driver_Gender               str
+
+Missing values per column (only columns with missing data):
+Weather_Condition    223
+Road_Condition       202
+Speed_Limit          107
+Light_Condition      120
+Alcohol_Involved     247
+Driver_Age           329
+Driver_Gender        233
+
+Exact duplicate rows: 160
+
+======================================================================
+2. DUPLICATES
+======================================================================
+Exact duplicate rows removed : 160
+Duplicate Accident_IDs removed: 0
+
+======================================================================
+3. STANDARDISING CATEGORICAL VALUES
+======================================================================
+City                 unique values:  40 ->  10
+Weather_Condition    unique values:  19 ->   6
+Vehicle_Type         unique values:  28 ->   7
+Accident_Severity    unique values:  12 ->   3
+Alcohol_Involved     unique values:   8 ->   3
+Driver_Gender        unique values:   6 ->   3
+
+======================================================================
+4. DATE & TIME CONVERSION
+======================================================================
+Dates parsed with DD/MM/YYYY fallback: 180
+Unparseable dates (rows dropped)     : 0
+Unparseable times (rows dropped)     : 0
+
+======================================================================
+5. INVALID / IMPOSSIBLE VALUES
+======================================================================
+Driver_Age: 45 invalid values + 320 missing -> filled with median age per vehicle type
+Speed_Limit: 25 invalid + 106 missing -> filled with the most common limit for that road type
+Number_of_Vehicles: 20 zero values corrected to 1
+Fatalities > Casualties: 25 rows fixed (casualties raised to match fatalities)
+Severity label not 'Fatal' despite deaths: 19 rows fixed
+
+======================================================================
+6. MISSING CATEGORICAL VALUES
+======================================================================
+Light_Condition: 116 missing -> derived from the hour of the day
+Road_Condition: 201 missing -> 'Wet' if raining, otherwise 'Unknown'
+Weather_Condition: 221 missing -> 'Unknown'
+Alcohol_Involved: 247 missing -> 'Unknown'
+Driver_Gender: 229 missing -> 'Unknown'
+
+======================================================================
+7. OUTLIER CHECK (Number_of_Casualties)
+======================================================================
+IQR upper fence = 3.5; rows above it = 1065
+Mass-casualty accidents (>=10 casualties) kept and flagged: 13
+
+======================================================================
+8. DERIVED COLUMNS
+======================================================================
+Created: Hour, Day, Month_Num, Weekend_Flag, Day_Type, Time_Period, Casualty_Rate, Fatality_Rate, Age_Group, Risk_Category, Mass_Casualty_Flag
+
+======================================================================
+9. SUMMARY
+======================================================================
+Rows before: 12,160 | Rows after: 12,000 | Rows removed: 160
+Remaining missing values: 0
